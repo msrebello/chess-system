@@ -52,4 +52,16 @@ public class Board {
         if (!PositionExists(position)) { throw new BoardException("Position not on the board."); }
         return piece(position) != null;
     }
-}
+
+    public Piece removePiece(Position position) {
+        if (!PositionExists(position))
+            throw new BoardException("Position not on the board.");
+        if (!ThereIsAPiece(position))
+            return null;
+        Piece temp = piece(position);
+        temp.position = null;
+        this.pieces[position.getRow()][position.getColumn()] = null;
+
+        return temp;
+    }
+;}
