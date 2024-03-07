@@ -24,39 +24,39 @@ public class Board {
     }
 
     public Piece piece(int row, int column) {
-        if (!PositionExists(row, column)) { throw new BoardException("Position not on the board."); }
+        if (!positionExists(row, column)) { throw new BoardException("Position not on the board."); }
         return this.pieces[row][column];
     }
 
     public Piece piece(Position position) {
-        if (!PositionExists(position.getRow(), position.getColumn())) { throw new BoardException("Position not on the board."); }
+        if (!positionExists(position)) { throw new BoardException("Position not on the board."); }
         return pieces[position.getRow()][position.getColumn()];
     }
 
     public void placePiece(Piece piece, Position position) {
-        if (ThereIsAPiece(position)) { throw new BoardException("There is already piece on position."); }
+        if (thereIsAPiece(position)) { throw new BoardException("There is already piece on position."); }
         this.pieces[position.getRow()][position.getColumn()] = piece;
         piece.position = position;
 
     }
 
-    private boolean PositionExists(int row, int column) {
+    private boolean positionExists(int row, int column) {
         return (row >= 0 && row < this.rows) && (column >= 0 && column < this.columns);
     }
 
-    public boolean PositionExists(Position position) {
-        return this.PositionExists(position.getRow(), position.getColumn());
+    public boolean positionExists(Position position) {
+        return this.positionExists(position.getRow(), position.getColumn());
     }
 
-    public boolean ThereIsAPiece(Position position) {
-        if (!PositionExists(position)) { throw new BoardException("Position not on the board."); }
+    public boolean thereIsAPiece(Position position) {
+        if (!positionExists(position)) { throw new BoardException("Position not on the board."); }
         return piece(position) != null;
     }
 
     public Piece removePiece(Position position) {
-        if (!PositionExists(position))
+        if (!positionExists(position))
             throw new BoardException("Position not on the board.");
-        if (!ThereIsAPiece(position))
+        if (!thereIsAPiece(position))
             return null;
         Piece temp = piece(position);
         temp.position = null;
